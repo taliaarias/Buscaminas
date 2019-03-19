@@ -80,9 +80,9 @@ public class Casilla {
 	@Override
 	public String toString() {
 		
-		if (isFlagged()) return " [F]";
+		if (isFlagged()) return "F";
 		
-		return String.format(!isVisible()?" [x]":String.format(hasMine()?" [M]":String.format(getMinesArround()>0?String.format(" [%d]", getMinesArround()):" [-]")));
+		return String.format(!isVisible()?" ":String.format(hasMine()?"M":String.format(getMinesArround()>0?String.format("%d", getMinesArround()):"-")));
 		
 		
 	}
