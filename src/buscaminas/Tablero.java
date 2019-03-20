@@ -160,16 +160,16 @@ public class Tablero {
 	
 	public void pisar(int vert, int hor) {
 		
-		if (this.getTableroInUse()[vert][hor].hasMine()) {
+	//	if (this.getTableroInUse()[vert][hor].hasMine()) {
 			
-			this.getTableroInUse()[vert][hor].setVisible(true);
+		//	this.getTableroInUse()[vert][hor].setVisible(true);
 			
-			} else if(!this.getTableroInUse()[vert][hor].isFlagged() && !this.getTableroInUse()[vert][hor].isVisible()
-				&& this.getTableroInUse()[vert][hor].getMinesArround()>0) {
+		//	} else if(!this.getTableroInUse()[vert][hor].isFlagged() && !this.getTableroInUse()[vert][hor].isVisible()
+		//		&& this.getTableroInUse()[vert][hor].getMinesArround()>0) {
 			
 			this.getTableroInUse()[vert][hor].setVisible(true);
 				
-			}
+		//	}
 				
 		}
 

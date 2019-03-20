@@ -11,7 +11,11 @@ import javax.swing.SwingUtilities;
 
 public class Buscaminas {
 	
-	static Tablero miTablero;		
+	static public Tablero miTablero;		
+	static public JFrame frame = new JFrame("Ejemplo5 con GridLayout");
+	static public JPanel contentPane = (JPanel) frame.getContentPane();
+	static public JPanel interior= new JPanel();
+	Procesador procesador = new Procesador();
 	
 	public class Botoncico extends JButton {
 		private static final long serialVersionUID = -6151893053086375721L;
@@ -84,25 +88,27 @@ public class Buscaminas {
 			Container pan = eb.getParent();
 			
 			if (SwingUtilities.isLeftMouseButton(e)) {
-				if (miTablero.getTableroInUse()[eb.getVer()][eb.getHor()].hasMine()) {
+				if (miTablero.getTableroInUse()[eb.getVer()][eb.getHor()].hasMine() && 
+						!miTablero.getTableroInUse()[eb.getVer()][eb.getHor()].isFlagged()) {
 					miTablero.mostrar();
-					for (int i = 0; i < pan.getComponentCount(); i++) {
-						Botoncico array_element = (Botoncico) pan.getComponents()[i];
-						
-						array_element.repaint();
-						array_element.revalidate();
-					}
+					pan.removeAll();
+					pintaBotones();
+					pan.repaint();
+					pan.revalidate();
+
 				}
-				/*
-				if (miTablero.getTableroInUse()[eb.getVer()][eb.getHor()].hasMine()) {
-					//System.out.println("Has perdido");
-					//miTablero.mostrar();
+				
+				if (!miTablero.getTableroInUse()[eb.getVer()][eb.getHor()].hasMine() &&
+						!miTablero.getTableroInUse()[eb.getVer()][eb.getHor()].isFlagged()) {
+					miTablero.pisar(eb.getVer(), eb.getHor());
+					eb.setText(etiq);
+					eb.setEnabled(false);
 					//pan.repaint();
 					//pan.revalidate();
 				}
 				
 				
-				else if (miTablero.getTableroInUse()[eb.getVer()][eb.getHor()].isFlagged()) { 
+				/*else if (miTablero.getTableroInUse()[eb.getVer()][eb.getHor()].isFlagged()) { 
 				//eb.setBackground(new Color(255, 255, 255));
 				miTablero.pisar(eb.getVer(), eb.getHor());
 				eb.setEnabled(false);
@@ -127,10 +133,22 @@ public class Buscaminas {
 	public Buscaminas(Tablero.dificultad dif) {
 		miTablero = new Tablero(dif);
 		miTablero.ponerMinas();
-		JFrame frame = new JFrame("Ejemplo5 con GridLayout");
-		JPanel contentPane = (JPanel) frame.getContentPane();
-		JPanel interior= new JPanel();
-		Procesador procesador = new Procesador();
+		pintaBotones();
+		contentPane.add(interior);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		if(miTablero.getDificultadInUse()==Tablero.dificultad.EASY)
+		frame.setSize(400,400);
+		else if(miTablero.getDificultadInUse()==Tablero.dificultad.MEDIUM)
+		frame.setSize(800,800);
+		else if(miTablero.getDificultadInUse()==Tablero.dificultad.HARD)
+		frame.setSize(1480,800);
+		frame.setVisible(true);
+		//frame.setResizable(false);
+		
+		
+	}
+	
+	public void pintaBotones() {
 		interior.setLayout(new GridLayout(miTablero.getTableroInUse().length,miTablero.getTableroInUse()[1].length,1,1));    
 		
 		for (int i=0; i<miTablero.getTableroInUse().length; i++) {
@@ -145,22 +163,7 @@ public class Buscaminas {
 			}
 			
 		}
-		
-		contentPane.add(interior);
-		
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		if(miTablero.getDificultadInUse()==Tablero.dificultad.EASY)
-		frame.setSize(400,400);
-		else if(miTablero.getDificultadInUse()==Tablero.dificultad.MEDIUM)
-		frame.setSize(800,800);
-		else if(miTablero.getDificultadInUse()==Tablero.dificultad.HARD)
-		frame.setSize(1480,800);
-		frame.setVisible(true);
-		frame.setResizable(false);
-		
-		
 	}
-	
 
 	
 	
