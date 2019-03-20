@@ -119,7 +119,7 @@ public class Tablero {
 			for (int i = 0; i < this.getTableroInUse().length; i++) {
 				
 				for (int j=0; j < this.getTableroInUse()[i].length; j++) {
-					
+					if(this.tableroInUse[i][j].hasMine())
 					this.tableroInUse[i][j].setVisible(true);
 					
 				}

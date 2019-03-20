@@ -84,9 +84,7 @@ public class Buscaminas {
 		@Override
 		public void mouseReleased(MouseEvent e) {
 			Botoncico eb =(Botoncico) e.getSource();
-			String etiq = miTablero.getTableroInUse()[eb.getVer()][eb.getHor()].toString();
 			Container pan = eb.getParent();
-			
 			if (SwingUtilities.isLeftMouseButton(e)) {
 				if (miTablero.getTableroInUse()[eb.getVer()][eb.getHor()].hasMine() && 
 						!miTablero.getTableroInUse()[eb.getVer()][eb.getHor()].isFlagged()) {
@@ -98,11 +96,12 @@ public class Buscaminas {
 
 				}
 				
-				if (!miTablero.getTableroInUse()[eb.getVer()][eb.getHor()].hasMine() &&
-						!miTablero.getTableroInUse()[eb.getVer()][eb.getHor()].isFlagged()) {
+				else {
 					miTablero.pisar(eb.getVer(), eb.getHor());
-					eb.setText(etiq);
+					String etiq = miTablero.getTableroInUse()[eb.getVer()][eb.getHor()].toString();
 					eb.setEnabled(false);
+					eb.setText(etiq);
+					//
 					//pan.repaint();
 					//pan.revalidate();
 				}
@@ -121,6 +120,7 @@ public class Buscaminas {
 				if (SwingUtilities.isRightMouseButton(e)) {
 					//eb.setBackground(new Color(255, 255, 255));
 					miTablero.flaggear(eb.getVer(), eb.getHor());
+					String etiq = miTablero.getTableroInUse()[eb.getVer()][eb.getHor()].toString();
 					eb.setText(etiq);
 					eb.getParent().repaint();
 					eb.getParent().revalidate();
