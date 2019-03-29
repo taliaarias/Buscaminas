@@ -131,7 +131,7 @@ public class Tablero {
 			}
 			
 		}
-	
+ 
 	public void ponerMina(int vert, int hor) {
 		
 		this.getTableroInUse()[vert][hor].setHasMine(true);
@@ -163,29 +163,29 @@ public class Tablero {
 	}
 	
 	public void pisar(int vert, int hor) {
-		
-	//	if (this.getTableroInUse()[vert][hor].hasMine()) {
+		Casilla pisada = this.getTableroInUse()[vert][hor];
+	//	if (pisada.hasMine()) {
 			
-		//	this.getTableroInUse()[vert][hor].setVisible(true);
+		//	pisada.setVisible(true);
 			
-		//	} else if(!this.getTableroInUse()[vert][hor].isFlagged() && !this.getTableroInUse()[vert][hor].isVisible()
-		//		&& this.getTableroInUse()[vert][hor].getMinesArround()>0) {
+		//	} else if(!pisada.isFlagged() && !pisada.isVisible()
+		//		&& pisada.getMinesArround()>0) {
 			
-			this.getTableroInUse()[vert][hor].setVisible(true);
+			pisada.setVisible(true);
 				
 		//	}
 				
 		}
 
 	public  void flaggear(int vert, int hor) {
-		
-		if (this.getTableroInUse()[vert][hor].isFlagged()) {
+		Casilla pisada = this.getTableroInUse()[vert][hor];
+		if (pisada.isFlagged()) {
 				
-			this.getTableroInUse()[vert][hor].setFlagged(false);
+			pisada.setFlagged(false);
 			
 		}
 		
-		else this.getTableroInUse()[vert][hor].setFlagged(true);
+		else pisada.setFlagged(true);
 		
 	}
 }
