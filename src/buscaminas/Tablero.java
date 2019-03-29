@@ -1,6 +1,6 @@
 package buscaminas;
 
-import java.util.Arrays;
+
 import java.util.Random;
 
 enum dificultad{EASY,MEDIUM,HARD};
@@ -18,13 +18,13 @@ public class Tablero {
 	static final int[] EASY= {10,8,8};
 	
 	public Tablero(dificultad dif) {
-		this.setDificultadInUse(dif);
 		
-		if(this.getDificultadInUse()==dificultad.EASY) {
+		
+		if(dif==dificultad.EASY) {
 			IN_USE=EASY;
-		} else if(this.getDificultadInUse()==dificultad.MEDIUM) {
+		} else if(dif==dificultad.MEDIUM) {
 			IN_USE=MEDIUM;
-		} else if(this.getDificultadInUse()==dificultad.HARD) {
+		} else if(dif==dificultad.HARD) {
 			IN_USE=HARD;
 		}	
 		setTableroInUse(new Casilla[IN_USE[1]][IN_USE[2]]);
@@ -61,7 +61,7 @@ public class Tablero {
 	}
 	
 	public void iniciar() {
-		Arrays.fill(tableroInUse, new Casilla());
+		
 		{
 			
 			for (int i = 0; i < this.getTableroInUse().length; i++) {

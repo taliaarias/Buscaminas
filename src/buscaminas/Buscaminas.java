@@ -4,7 +4,6 @@ import java.awt.Container;
 import java.awt.GridLayout;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
@@ -93,17 +92,17 @@ public class Buscaminas {
 		
 	}
 	
-	public Buscaminas(Tablero.dificultad dif) {
+	public Buscaminas(dificultad dif) {
 		miTablero = new Tablero(dif);
 		miTablero.ponerMinas();
 		pintaBotones();
 		contentPane.add(interior);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		if(miTablero.getDificultadInUse()==Tablero.dificultad.EASY)
+		if(miTablero.getDificultadInUse()==dificultad.EASY)
 		frame.setSize(400,400);
-		else if(miTablero.getDificultadInUse()==Tablero.dificultad.MEDIUM)
+		else if(miTablero.getDificultadInUse()==dificultad.MEDIUM)
 		frame.setSize(800,800);
-		else if(miTablero.getDificultadInUse()==Tablero.dificultad.HARD)
+		else if(miTablero.getDificultadInUse()==dificultad.HARD)
 		frame.setSize(1480,800);
 		frame.setVisible(true);
 		//frame.setResizable(false);
@@ -130,7 +129,7 @@ public class Buscaminas {
 
 	
 	
-	public static void main(Tablero.dificultad dif) {
+	public static void main(dificultad dif) {
 
 	//	miTablero.imprime();		
 	//	Utilidades.ponerMina(miTablero, 0, 0);
