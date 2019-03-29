@@ -1,5 +1,6 @@
 package buscaminas;
 
+import java.util.Arrays;
 import java.util.Random;
 
 public class Tablero {
@@ -58,6 +59,7 @@ public class Tablero {
 	}
 	
 	public void iniciar() {
+		Arrays.fill(tableroInUse, new Casilla());
 		{
 			
 			for (int i = 0; i < this.getTableroInUse().length; i++) {
@@ -87,7 +89,7 @@ public class Tablero {
 				System.out.println();
 				
 			}
-			
+		 
 		}
 	}
 	

@@ -16,7 +16,7 @@ public class Buscaminas {
 	static public JPanel contentPane = (JPanel) frame.getContentPane();
 	static public JPanel interior= new JPanel();
 	Procesador procesador = new Procesador();
-	
+ 
 	public class Botoncico extends JButton {
 		private static final long serialVersionUID = -6151893053086375721L;
 		public int ver;
