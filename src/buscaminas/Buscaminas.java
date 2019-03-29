@@ -16,44 +16,7 @@ public class Buscaminas {
 	static public JPanel contentPane = (JPanel) frame.getContentPane();
 	static public JPanel interior= new JPanel();
 	Procesador procesador = new Procesador();
-	
-	public class Botoncico extends JButton {
-		private static final long serialVersionUID = -6151893053086375721L;
-		public int ver;
-		public int hor;
-		
-		public Botoncico() {
-			super();
-		}
-		
-		public Botoncico(String args) {
-			super(args);
-		}
-		
-		public Botoncico(String args, int ver, int hor) {
-			super(args);
-			this.setVer(ver);
-			this.setHor(hor);
-		}
-		
-		public int getVer() {
-			return ver;
-		}
-
-		public int getHor() {
-			return hor;
-		}
-		
-		public void setVer(int ver) {
-			this.ver = ver;
-		}
-		
-		public void setHor(int hor) {
-			this.hor = hor;
-		}
-
-		
-	}
+ 
 	public class Procesador implements MouseListener {
 
 		@Override

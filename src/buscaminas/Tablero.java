@@ -1,15 +1,18 @@
 package buscaminas;
 
+import java.util.Arrays;
 import java.util.Random;
+
+enum dificultad{EASY,MEDIUM,HARD};
 
 public class Tablero {
 	
-	public enum dificultad{EASY,MEDIUM,HARD};
+	 
 	
 	public Casilla[][] tableroInUse;
 	private dificultad dificultadInUse;
 	
-	int[] IN_USE= {0,0,0};
+	int[] IN_USE= {0,0,0}; 
 	static final int[] HARD= {99,16,30};
 	static final int[] MEDIUM= {40,16,16};
 	static final int[] EASY= {10,8,8};
@@ -58,6 +61,7 @@ public class Tablero {
 	}
 	
 	public void iniciar() {
+		Arrays.fill(tableroInUse, new Casilla());
 		{
 			
 			for (int i = 0; i < this.getTableroInUse().length; i++) {
@@ -87,7 +91,7 @@ public class Tablero {
 				System.out.println();
 				
 			}
-			
+		 
 		}
 	}
 	
