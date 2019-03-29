@@ -114,6 +114,20 @@ public class Tablero {
 			return completo;
 	}
 	
+	public void mostrar() {
+			
+			for (int i = 0; i < this.getTableroInUse().length; i++) {
+				
+				for (int j=0; j < this.getTableroInUse()[i].length; j++) {
+					if(this.tableroInUse[i][j].hasMine())
+					this.tableroInUse[i][j].setVisible(true);
+					
+				}
+				
+			}
+			
+		}
+	
 	public void ponerMina(int vert, int hor) {
 		
 		this.getTableroInUse()[vert][hor].setHasMine(true);
@@ -136,7 +150,7 @@ public class Tablero {
 		Random rand = new Random();
 		do {
 			
-			int ver=rand.nextInt(this.IN_USE[1]-1), hor=rand.nextInt(this.IN_USE[2]-1);
+			int ver=rand.nextInt(getTableroInUse().length-1), hor=rand.nextInt(getTableroInUse()[0].length-1);
 			ponerMina(ver, hor);
 			
 		} while(!this.estaCompleto());
@@ -146,20 +160,28 @@ public class Tablero {
 	
 	public void pisar(int vert, int hor) {
 		
-		if (this.getTableroInUse()[vert][hor].hasMine()) sys
-		if(!this.getTableroInUse()[vert][hor].isFlagged() && !this.getTableroInUse()[vert][hor].isVisible()) 
+	//	if (this.getTableroInUse()[vert][hor].hasMine()) {
+			
+		//	this.getTableroInUse()[vert][hor].setVisible(true);
+			
+		//	} else if(!this.getTableroInUse()[vert][hor].isFlagged() && !this.getTableroInUse()[vert][hor].isVisible()
+		//		&& this.getTableroInUse()[vert][hor].getMinesArround()>0) {
 			
 			this.getTableroInUse()[vert][hor].setVisible(true);
 				
-			
+		//	}
 				
 		}
 
 	public  void flaggear(int vert, int hor) {
 		
-		if (!this.getTableroInUse()[vert][hor].isFlagged() && !this.getTableroInUse()[vert][hor].isVisible())
+		if (this.getTableroInUse()[vert][hor].isFlagged()) {
+				
+			this.getTableroInUse()[vert][hor].setFlagged(false);
 			
-			this.getTableroInUse()[vert][hor].setFlagged(true);
+		}
+		
+		else this.getTableroInUse()[vert][hor].setFlagged(true);
 		
 	}
 }
