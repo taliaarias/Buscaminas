@@ -4,11 +4,12 @@ import javax.swing.JButton;
 
 public class Botoncico extends JButton {
 		
-
+	//propiedades
 	private static final long serialVersionUID = 6582544947194522742L;
 	private int ver;
 	private int hor;
 	
+	//constructores
 	public Botoncico() {
 		super();
 	}
@@ -23,6 +24,7 @@ public class Botoncico extends JButton {
 		this.setHor(hor);
 	}
 	
+	//getters and setters
 	public int getVer() {
 		return this.ver;
 	}

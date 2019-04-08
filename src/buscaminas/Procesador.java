@@ -15,22 +15,25 @@ public class Procesador implements MouseListener {
 
 	@Override
 	public void mouseEntered(MouseEvent e) {
-		// TODO Auto-generated method stub
+	
 		
 	}
 
 	@Override
 	public void mouseExited(MouseEvent e) {
-		// TODO Auto-generated method stub
+		
 		
 	}
 
 	@Override
 	public void mousePressed(MouseEvent e) {
-		// TODO Auto-generated method stub
+	
 		
 	}
 
+	/**
+	 * Método que sobreescribe los eventos que suceden al hacer "click" con el ratón.
+	 */
 	
 	@Override
 	public void mouseReleased(MouseEvent e) {
@@ -52,31 +55,18 @@ public class Procesador implements MouseListener {
 				String etiq = Tablero.getTableroInUse()[eb.getVer()][eb.getHor()].toString();
 				eb.setEnabled(false);
 				eb.setText(etiq);
-				//
-				//pan.repaint();
-				//pan.revalidate();
+				
 			}
 			
 			
-			/*else if (miTablero.getTableroInUse()[eb.getVer()][eb.getHor()].isFlagged()) { 
-			//eb.setBackground(new Color(255, 255, 255));
-			miTablero.pisar(eb.getVer(), eb.getHor());
-			eb.setEnabled(false);
-			eb.setText(etiq);
-			pan.repaint();
-			pan.revalidate();
-			}*/
-			
 		} else
 			if (SwingUtilities.isRightMouseButton(e)) {
-				//eb.setBackground(new Color(255, 255, 255));
 				Tablero.flaggear(eb.getVer(), eb.getHor());
 				String etiq = Tablero.getTableroInUse()[eb.getVer()][eb.getHor()].toString();
 				eb.setText(etiq);
 				eb.getParent().repaint();
 				eb.getParent().revalidate();
-			}
-		
+			}	
 	}
 	
 }
