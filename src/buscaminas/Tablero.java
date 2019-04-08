@@ -1,90 +1,92 @@
 package buscaminas;
 
-import java.util.Arrays;
+
 import java.util.Random;
 
-enum dificultad{EASY,MEDIUM,HARD};
+enum Dificultad{EASY,MEDIUM,HARD};
 
 public class Tablero {
 	
-	 
+	private static Casilla[][] tableroInUse;
+	private static Dificultad dificultadInUse;
 	
-	public Casilla[][] tableroInUse;
-	private dificultad dificultadInUse;
-	
-	static int[] IN_USE= {0,0,0}; 
+	static int[] current= {0,0,0}; 
 	static final int[] HARD= {99,16,30};
 	static final int[] MEDIUM= {40,16,16};
 	static final int[] EASY= {10,8,8};
 	
-	public Tablero(dificultad dif) {
-		this.setDificultadInUse(dif);
+	public static void inicarTablero(Dificultad dif) {
+
+		switch (dif) {
 		
-		if(this.getDificultadInUse()==dificultad.EASY) {
-			IN_USE=EASY;
-		} else if(this.getDificultadInUse()==dificultad.MEDIUM) {
-			IN_USE=MEDIUM;
-		} else if(this.getDificultadInUse()==dificultad.HARD) {
-			IN_USE=HARD;
-		}	
-		setTableroInUse(new Casilla[IN_USE[1]][IN_USE[2]]);
+		case EASY:
+			current=EASY;
+			break;
+		case MEDIUM:
+			current=MEDIUM;
+			break;
+		case HARD:
+			current=HARD;
+			break;	
+		}
+		
 		iniciar();
-		
 	}
+	
 
 	/**
 	 * @return the tableroInUse
 	 */
-	public Casilla[][] getTableroInUse() {
+	public static Casilla[][] getTableroInUse() {
 		return tableroInUse;
 	}
 
 	/**
 	 * @return the dificultadInUse
 	 */
-	public dificultad getDificultadInUse() {
+	public static Dificultad getDificultadInUse() {
 		return dificultadInUse;
 	}
 
 	/**
-	 * @param tableroInUse the tableroInUse to set
+	 * @param tablero the tableroInUse to set
 	 */
-	public void setTableroInUse(Casilla[][] tableroInUse) {
-		this.tableroInUse = tableroInUse;
+	public static void setTableroInUse(Casilla[][] tablero) {
+		tableroInUse = tablero;
 	}
 
 	/**
-	 * @param dificultadInUse the dificultadInUse to set
+	 * @param dif the dificultadInUse to set
 	 */
-	public void setDificultadInUse(dificultad dificultadInUse) {
-		this.dificultadInUse = dificultadInUse;
+	public static void setDificultadInUse(Dificultad dif) {
+		
+		Tablero.setDificultadInUse(dif);
 	}
 	
-	public void iniciar() {
+	public static void iniciar() {
 		
-		{
-			
-			for (int i = 0; i < this.getTableroInUse().length; i++) {
+		setTableroInUse(new Casilla[current[1]][current[2]]);
+		
+			for (int i = 0; i < getTableroInUse().length; i++) {
 				
-				for (int j=0; j < this.getTableroInUse()[i].length; j++) {
+				for (int j=0; j < getTableroInUse()[i].length; j++) {
 					
-					this.tableroInUse[i][j]=new Casilla();
+					getTableroInUse()[i][j]=new Casilla();
 					
 				}
 				
 			}
 			
-		}
 	}
 	
-	public void imprime() {
+	public static void imprime() {
 		{
 			
-			for (int i = 0; i < this.getTableroInUse().length; i++) {
+			for (int i = 0; i < getTableroInUse().length; i++) {
 				
-				for (int j=0; j < this.getTableroInUse()[i].length; j++) {
+				for (int j=0; j < getTableroInUse()[i].length; j++) {
 					
-					System.out.print(tableroInUse[i][j]);
+					System.out.print(getTableroInUse()[i][j]);
 					
 				}
 				System.out.println();
@@ -95,7 +97,7 @@ public class Tablero {
 		}
 	}
 	
-	public boolean estaCompleto() {
+	public static boolean estaCompleto() {
 			
 			boolean completo = false;
 			int cont = 0;
@@ -103,13 +105,13 @@ public class Tablero {
 			for (int i = 0; i < getTableroInUse().length; i++) {
 				for (int j=0; j < getTableroInUse()[i].length; j++) {
 					
-					if (cont==IN_USE[0]) {
+					if (cont==current[0]) {
 						
 						completo=true;
 						break;
 					}
 					
-					else if (tableroInUse[i][j].hasMine()) cont++ ;
+					else if (getTableroInUse()[i][j].hasMine()) cont++ ;
 					
 					
 				}
@@ -118,30 +120,31 @@ public class Tablero {
 			return completo;
 	}
 	
-	public void mostrar() {
+	public static void mostrar() {
 			
-			for (int i = 0; i < this.getTableroInUse().length; i++) {
+			for (int i = 0; i < getTableroInUse().length; i++) {
 				
-				for (int j=0; j < this.getTableroInUse()[i].length; j++) {
-					if(this.tableroInUse[i][j].hasMine())
-					this.tableroInUse[i][j].setVisible(true);
+				for (int j=0; j < getTableroInUse()[i].length; j++) {
+					
+					if(getTableroInUse()[i][j].hasMine())
+						getTableroInUse()[i][j].setVisible(true);
 					
 				}
 				
 			}
 			
 		}
-	
-	public void ponerMina(int vert, int hor) {
+ 
+	public static void ponerMina(int vert, int hor) {
 		
-		this.getTableroInUse()[vert][hor].setHasMine(true);
+		getTableroInUse()[vert][hor].setHasMine(true);
 		
 		for (int i = vert-1; i <= vert+1 ; i++) {
 			for (int j = hor-1; j <= hor+1; j++) {
 				
-				if (i>=0 && i<=this.getTableroInUse().length && j>=0 && j<=this.getTableroInUse().length) {
+				if (i>=0 && i<getTableroInUse().length && j>=0 && j<getTableroInUse()[0].length) {
 					
-					this.getTableroInUse()[i][j].sumarCuenta();
+					getTableroInUse()[i][j].sumarCuenta();
 					
 				}
 			}
@@ -149,43 +152,42 @@ public class Tablero {
 		}
 	}
 	
-	public void ponerMinas() {
+	public static void ponerMinas() {
 		
 		Random rand = new Random();
+		int longitudmax = getTableroInUse().length;
 		do {
 			
-			int ver=rand.nextInt(getTableroInUse().length-1), hor=rand.nextInt(getTableroInUse()[0].length-1);
+			int ver=rand.nextInt(longitudmax);
+			int hor=rand.nextInt(longitudmax);
 			ponerMina(ver, hor);
 			
-		} while(!this.estaCompleto());
+		} while(!estaCompleto());
 		
 		
 	}
 	
-	public void pisar(int vert, int hor) {
-		
-	//	if (this.getTableroInUse()[vert][hor].hasMine()) {
+	public static void pisar(int vert, int hor) {
+		Casilla pisada = getTableroInUse()[vert][hor];
+		if (pisada.hasMine()) {
+			Tablero.mostrar();
+		//	pisada.setVisible(true);
 			
-		//	this.getTableroInUse()[vert][hor].setVisible(true);
-			
-		//	} else if(!this.getTableroInUse()[vert][hor].isFlagged() && !this.getTableroInUse()[vert][hor].isVisible()
-		//		&& this.getTableroInUse()[vert][hor].getMinesArround()>0) {
-			
-			this.getTableroInUse()[vert][hor].setVisible(true);
+		//	} else if(!pisada.isFlagged() && !pisada.isVisible()
+		//		&& pisada.getMinesArround()>0) {
+		}
+			pisada.setVisible(true);
 				
 		//	}
 				
 		}
 
-	public  void flaggear(int vert, int hor) {
+	public static void flaggear(int vert, int hor) {
+		Casilla pisada = getTableroInUse()[vert][hor];
 		
-		if (this.getTableroInUse()[vert][hor].isFlagged()) {
-				
-			this.getTableroInUse()[vert][hor].setFlagged(false);
-			
-		}
-		
-		else this.getTableroInUse()[vert][hor].setFlagged(true);
+		if (pisada.isFlagged()) pisada.setDuda(true);
+		else if (pisada.isDuda()) pisada.setVisible(false);
+		else pisada.setFlagged(true);
 		
 	}
 }

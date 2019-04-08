@@ -5,6 +5,7 @@ public class Casilla {
 	private boolean hasMine;
 	private boolean isVisible;
 	private boolean isFlagged;
+	private boolean isDuda;
 	private int minesAround;
 	
 	/**
@@ -15,6 +16,7 @@ public class Casilla {
 		setHasMine(false);
 		setVisible(false);
 		setFlagged(false);
+		setDuda(false);
 		this.minesAround=0;		
 		}
 	
@@ -60,6 +62,8 @@ public class Casilla {
 	 */
 	public void setVisible(boolean isVisible) {
 		this.isVisible = isVisible;
+		this.isDuda=false;
+		this.isFlagged=false;
 	}
 	
 	/**
@@ -74,16 +78,34 @@ public class Casilla {
 	 */
 	public void setFlagged(boolean isFlagged) {
 		this.isFlagged=isFlagged;
+		this.isDuda=false;
 	}
 	
 	
+	public boolean isDuda() {
+		return isDuda;
+	}
+
+
+	public void setDuda(boolean isDuda) {
+		this.isDuda = isDuda;
+		this.isFlagged=false;
+	}
+
+
 	@Override
 	public String toString() {
 		
-		if (isFlagged()) return "F";
+		String res="";
+		if (isDuda()) res="?";
+		else if (isFlagged()) res="F";
 		
-		return String.format(!isVisible()?" ":String.format(hasMine()?"M":String.format(getMinesArround()>0?String.format("%d", getMinesArround()):"-")));
+		else if(isVisible()) res=" ";
+		else if (isVisible() && hasMine()) res ="M";
+		else if (getMinesArround()>0) res=""+getMinesArround();
+		else res="-";
 		
+		return res;		
 		
 	}
 

@@ -13,7 +13,7 @@ public class Utilidades {
 		Random rand = new Random();
 		do {
 			
-			int ver=rand.nextInt(Tablero.IN_USE[1]-1), hor=rand.nextInt(Tablero.IN_USE[2]-1);
+			int ver=rand.nextInt(Tablero.current[1]-1), hor=rand.nextInt(Tablero.current[2]-1);
 			ponerMina(tablero, ver, hor);
 			
 		} while(!tablero.estaCompleto());

@@ -48,7 +48,7 @@ public class Launcher {
 		JButton btnEasy = new JButton("Fácil");
 		btnEasy.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Buscaminas.main(dificultad.EASY);
+				Buscaminas.execBusca(Dificultad.EASY);
 			}
 		});
 		btnEasy.setBounds(10, 38, 89, 23);
@@ -57,7 +57,7 @@ public class Launcher {
 		JButton btnMedium = new JButton("Media");
 		btnMedium.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Buscaminas.main(dificultad.MEDIUM);
+				Buscaminas.execBusca(Dificultad.MEDIUM);
 			}
 		});
 		btnMedium.setBounds(109, 38, 89, 23);
@@ -66,7 +66,7 @@ public class Launcher {
 		JButton btnHard = new JButton("Dificil");
 		btnHard.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Buscaminas.main(dificultad.HARD);
+				Buscaminas.execBusca(Dificultad.HARD);
 			}
 		});
 		btnHard.setBounds(208, 38, 89, 23);

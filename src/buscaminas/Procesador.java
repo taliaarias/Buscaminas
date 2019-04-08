@@ -3,10 +3,9 @@ package buscaminas;
 import java.awt.Container;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-
 import javax.swing.SwingUtilities;
 
-public class Procesadortest implements MouseListener {
+public class Procesador implements MouseListener {
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
@@ -38,19 +37,19 @@ public class Procesadortest implements MouseListener {
 		Botoncico eb =(Botoncico) e.getSource();
 		Container pan = eb.getParent();
 		if (SwingUtilities.isLeftMouseButton(e)) {
-			if (miTablero.getTableroInUse()[eb.getVer()][eb.getHor()].hasMine() && 
-					!miTablero.getTableroInUse()[eb.getVer()][eb.getHor()].isFlagged()) {
-				miTablero.mostrar();
+			if (Tablero.getTableroInUse()[eb.getVer()][eb.getHor()].hasMine() && 
+					!Tablero.getTableroInUse()[eb.getVer()][eb.getHor()].isFlagged()) {
+				Tablero.mostrar();
 				pan.removeAll();
-				pintaBotones();
+				Buscaminas.pintaBotones();
 				pan.repaint();
 				pan.revalidate();
 
 			}
 			
 			else {
-				miTablero.pisar(eb.getVer(), eb.getHor());
-				String etiq = miTablero.getTableroInUse()[eb.getVer()][eb.getHor()].toString();
+				Tablero.pisar(eb.getVer(), eb.getHor());
+				String etiq = Tablero.getTableroInUse()[eb.getVer()][eb.getHor()].toString();
 				eb.setEnabled(false);
 				eb.setText(etiq);
 				//
@@ -71,8 +70,8 @@ public class Procesadortest implements MouseListener {
 		} else
 			if (SwingUtilities.isRightMouseButton(e)) {
 				//eb.setBackground(new Color(255, 255, 255));
-				miTablero.flaggear(eb.getVer(), eb.getHor());
-				String etiq = miTablero.getTableroInUse()[eb.getVer()][eb.getHor()].toString();
+				Tablero.flaggear(eb.getVer(), eb.getHor());
+				String etiq = Tablero.getTableroInUse()[eb.getVer()][eb.getHor()].toString();
 				eb.setText(etiq);
 				eb.getParent().repaint();
 				eb.getParent().revalidate();
