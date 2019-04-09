@@ -123,9 +123,9 @@ public class Casilla {
 		String res="";
 		if (isDuda()) res="?";
 		else if (isFlagged()) res="F";		
-		else if (isVisible() && hasMine()) res ="M";
-		else if(!isVisible()) res=" ";
-		else if (getMinesArround()>0 && !hasMine()) res=""+getMinesArround();
+		else if (!isVisible() && hasMine()) res ="M";
+		else if(isVisible()) res=" ";
+		else if (getMinesArround()>0 && !hasMine()) res=String.valueOf(getMinesArround());
 		else res="-";
 		
 		return res;			

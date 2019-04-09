@@ -23,20 +23,17 @@ public class Tablero {
 	 */
 	
 	public static void iniciarTablero(Dificultad dif) {
-
+		setDificultadInUse(dif);
 		switch (dif) {
 		
 		case EASY:
 			current=EASY;
-			setDificultadInUse(dif);
 			break;
 		case MEDIUM:
 			current=MEDIUM;
-			setDificultadInUse(dif);
 			break;
 		case HARD:
 			current=HARD;
-			setDificultadInUse(dif);
 			break;	
 		}
 		
@@ -50,6 +47,7 @@ public class Tablero {
 	 * @return devuelve el tablero.
 	 */
 	public static Casilla[][] getTableroInUse() {
+		
 		return tableroInUse;
 	}
 
@@ -57,7 +55,9 @@ public class Tablero {
 	 * @return devuelve el grado de dificultad.
 	 */
 	public static Dificultad getDificultadInUse() {
+		
 		return dificultadInUse;
+		
 	}
 
 	/**
@@ -65,6 +65,7 @@ public class Tablero {
 	 * @void no devuelve nada.
 	 */
 	public static void setTableroInUse(Casilla[][] tablero) {
+		
 		tableroInUse = tablero;
 	}
 
@@ -74,7 +75,8 @@ public class Tablero {
 	 */
 	public static void setDificultadInUse(Dificultad dif) {
 		
-		Tablero.setDificultadInUse(dif);
+		dificultadInUse=dif;
+		
 	}
 	
 	/**
@@ -168,19 +170,25 @@ public class Tablero {
 	 */
 	public static void ponerMina(int vert, int hor) {
 		
-		getTableroInUse()[vert][hor].setHasMine(true);
-		
-		for (int i = vert-1; i <= vert+1 ; i++) {
-			for (int j = hor-1; j <= hor+1; j++) {
-				
-				if (i>=0 && i<getTableroInUse().length && j>=0 && j<getTableroInUse()[0].length) {
+		if (!getTableroInUse()[vert][hor].hasMine()) {
+			
+			getTableroInUse()[vert][hor].setHasMine(true);
+			for (int i = vert-1; i <= vert+1 ; i++) {
+				for (int j = hor-1; j <= hor+1; j++) {
 					
-					getTableroInUse()[i][j].sumarCuenta();
-					
+					if (i>=0 && i<getTableroInUse().length && j>=0 && j<getTableroInUse()[i].length && !getTableroInUse()[i][j].hasMine()) {
+						
+						getTableroInUse()[i][j].sumarCuenta();
+						
+					}
 				}
+				
 			}
 			
-		}
+		} else getTableroInUse()[vert][hor].setHasMine(false);
+		
+		
+		
 	}
 	
 	/**
@@ -191,11 +199,13 @@ public class Tablero {
 	public static void ponerMinas() {
 		
 		Random rand = new Random();
-		int longitudmax = getTableroInUse().length;
+		int vertmax = getTableroInUse().length;
+		int hormax = getTableroInUse()[0].length;
 		do {
 			
-			int ver=rand.nextInt(longitudmax);
-			int hor=rand.nextInt(longitudmax);
+			int ver=rand.nextInt(vertmax);
+			int hor=rand.nextInt(hormax);
+			
 			ponerMina(ver, hor);
 			
 		} while(!estaCompleto());
@@ -214,74 +224,32 @@ public class Tablero {
 		
 		Casilla pisada = getTableroInUse()[vert][hor];
 		
-		if(!pisada.isVisible()) {
-			pisada.setVisible(true); 
+		if (vert>=0 && vert<getTableroInUse().length && hor>=0 && hor<getTableroInUse()[0].length) {
+		
+		
+		if(!pisada.isVisible() && !pisada.isFlagged()) {
 			
-			if(pisada.getMinesArround()==0) {
+			if (pisada.isFlagged()) pisada.setVisible(false);
+			
+			if (pisada.hasMine()) Tablero.mostrar();
+			
+			else pisada.setVisible(true); 
+			
+			if (pisada.getMinesArround()==0) {
 				
-				for (int i = vert-1; i <= vert+1 ; i++) {
+				for (int i= vert-1; i <= vert+1 ; i++) {
 					for (int j = hor-1; j <= hor+1; j++) {
-							//getTableroInUse()[i][j].setVisible(true);
-						//Tablero.mostrar();
-					//pisar(vert, hor);
-							//imprime();
 						if (i>=0 && i<getTableroInUse().length && j>=0 && j<getTableroInUse()[0].length) {
-						//	getTableroInUse()[i][j].setVisible(true);
-						//pisada.isVisible();
-						  // int vert = pisada[vert];
-						 //  int hor = pisada[hor];
-							 //pisar(vert, hor); // PETAAAAA
-							//imprime();
-							pisar(vert-1, hor);
-							pisar(vert-1, hor-1);
-							pisar(vert-1, hor+1);
-							pisar(vert, hor-1);
-							pisar(vert, hor+1);
-							pisar(vert+1, hor-1);
-							pisar(vert+1, hor);
-							pisar(vert+1, hor+1);
+							pisar(i, j);
+							}
 						}
 					}
 				}
 			}
 		}
 		
-		pisada.setVisible(true);
-				
-		}
-
-	/*public static void pisar(int vert, int hor) {
-		
-		Casilla pisada = getTableroInUse()[vert][hor];
-		
-		if(!pisada.isVisible()) {
-			pisada.setVisible(true); 
-			//en el papel teníais puesto que hay que poner FALSE pero no lo entiendo.
-			
-			do { //NO HACERRRRR. ENTRA EN BUCLE INFINITO 
-			
-				for (int i = vert-1; i <= vert+1 ; i++) {
-					for (int j = hor-1; j <= hor+1; j++) {
-							//getTableroInUse()[i][j].setVisible(true);
-						//Tablero.mostrar();
-					//pisar(vert, hor);
-							//imprime();
-						if (i>=0 && i<getTableroInUse().length && j>=0 && j<getTableroInUse()[0].length) {
-						//	getTableroInUse()[i][j].setVisible(true);
-						//pisada.isVisible();
-							 //pisar(vert, hor); // PETAAAAA
-							//imprime();
-							
-						}
-					}
-				}
-			}while(pisada.getMinesArround()<1);
-			
-		}
-		
-		pisada.setVisible(true);
-				
-		}*/
+	}
+	
 	
 	/**
 	 * Método que al "clickear" con el botón derecho etiqueta las casillas.
