@@ -21,18 +21,22 @@ public class Tablero {
 	 * @param dif el grado de dificultad.
 	 * @void no devuelve nada.
 	 */
+	
 	public static void iniciarTablero(Dificultad dif) {
 
 		switch (dif) {
 		
 		case EASY:
 			current=EASY;
+			setDificultadInUse(dif);
 			break;
 		case MEDIUM:
 			current=MEDIUM;
+			setDificultadInUse(dif);
 			break;
 		case HARD:
 			current=HARD;
+			setDificultadInUse(dif);
 			break;	
 		}
 		
@@ -211,10 +215,9 @@ public class Tablero {
 		Casilla pisada = getTableroInUse()[vert][hor];
 		
 		if(!pisada.isVisible()) {
-			pisada.setVisible(false); 
-			//en el papel teníais puesto que hay que poner FALSE pero no lo entiendo.
+			pisada.setVisible(true); 
 			
-			if(pisada.getMinesArround()<1) {
+			if(pisada.getMinesArround()==0) {
 				
 				for (int i = vert-1; i <= vert+1 ; i++) {
 					for (int j = hor-1; j <= hor+1; j++) {
@@ -225,6 +228,8 @@ public class Tablero {
 						if (i>=0 && i<getTableroInUse().length && j>=0 && j<getTableroInUse()[0].length) {
 						//	getTableroInUse()[i][j].setVisible(true);
 						//pisada.isVisible();
+						  // int vert = pisada[vert];
+						 //  int hor = pisada[hor];
 							 //pisar(vert, hor); // PETAAAAA
 							//imprime();
 							pisar(vert-1, hor);
@@ -245,6 +250,39 @@ public class Tablero {
 				
 		}
 
+	/*public static void pisar(int vert, int hor) {
+		
+		Casilla pisada = getTableroInUse()[vert][hor];
+		
+		if(!pisada.isVisible()) {
+			pisada.setVisible(true); 
+			//en el papel teníais puesto que hay que poner FALSE pero no lo entiendo.
+			
+			do { //NO HACERRRRR. ENTRA EN BUCLE INFINITO 
+			
+				for (int i = vert-1; i <= vert+1 ; i++) {
+					for (int j = hor-1; j <= hor+1; j++) {
+							//getTableroInUse()[i][j].setVisible(true);
+						//Tablero.mostrar();
+					//pisar(vert, hor);
+							//imprime();
+						if (i>=0 && i<getTableroInUse().length && j>=0 && j<getTableroInUse()[0].length) {
+						//	getTableroInUse()[i][j].setVisible(true);
+						//pisada.isVisible();
+							 //pisar(vert, hor); // PETAAAAA
+							//imprime();
+							
+						}
+					}
+				}
+			}while(pisada.getMinesArround()<1);
+			
+		}
+		
+		pisada.setVisible(true);
+				
+		}*/
+	
 	/**
 	 * Método que al "clickear" con el botón derecho etiqueta las casillas.
 	 * Si pulsas 1 vez, pone "F".
