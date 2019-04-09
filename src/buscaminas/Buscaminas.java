@@ -6,14 +6,19 @@ import javax.swing.JPanel;
 
 public class Buscaminas {
 	
-			
+	//propiedades		
 	static public JFrame frame = new JFrame("Ejemplo5 con GridLayout");
 	static public JPanel contentPane = (JPanel) frame.getContentPane();
 	static public JPanel interior= new JPanel();
 	static Procesador procesador = new Procesador();
  	
+	/**
+	 * Constructor al que se le pasa el parámetro de dificultad.
+	 * @param dif indica el número de minas y el tamaño del tablero en función de la dificultad.
+	 */
 	public Buscaminas(Dificultad dif) {
-		Tablero.inicarTablero(dif);
+		
+		Tablero.iniciarTablero(dif);
 		Tablero.ponerMinas();
 		pintaBotones();
 		contentPane.add(interior);
@@ -25,12 +30,15 @@ public class Buscaminas {
 		else if(dif==Dificultad.HARD)
 		frame.setSize(1480,800);
 		frame.setVisible(true);
-		//frame.setResizable(false);
-		
 		
 	}
 	
+	/**
+	 * Método que crea los botones dentro del tablero.
+	 * @void no devuelve nada.
+	 */
 	public static void pintaBotones() {
+		
 		interior.setLayout(new GridLayout(Tablero.getTableroInUse().length,Tablero.getTableroInUse()[1].length,1,1));    
 		
 		for (int i=0; i<Tablero.getTableroInUse().length; i++) {
@@ -40,23 +48,18 @@ public class Buscaminas {
 			Botoncico botoncico= new Botoncico(Tablero.getTableroInUse()[i][j].toString(), i, j);
 			botoncico.addMouseListener(procesador);
 			interior.add(botoncico);
-			//botoncico.setBackground(new Color(255, 255, 255));
 			
-			}
-			
+			}		
 		}
 	}
 
-	
+	/**
+	 * Método ejecutor del programa al que se le pasa el parámetro de dificultad.
+	 * @param dif Recibe el tipo de dificultad de la partida: fácil, medio o difícil.
+	 * @void no devuelve nada.
+	 */
 	
 	public static void execBusca(Dificultad dif) {
-
-	//	miTablero.imprime();		
-	//	Utilidades.ponerMina(miTablero, 0, 0);
-	//	Utilidades.ponerMina(miTablero, 2, 2);
-	//	Utilidades.ponerMina(miTablero, 0, 2);
-	//	miTablero.ponerMinas();
-
 		
 		javax.swing.SwingUtilities.invokeLater(new Runnable(){
 		public void run() {

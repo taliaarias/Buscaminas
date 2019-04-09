@@ -14,7 +14,8 @@ public class Launcher {
 	private JFrame frame;
 
 	/**
-	 * Launch the application.
+	 * Método main para lanzar la aplicación.
+	 * @void no devuelve nada.
 	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -30,14 +31,16 @@ public class Launcher {
 	}
 
 	/**
-	 * Create the application.
+	 * Constructor vacío para inicializar la aplicación.
 	 */
 	public Launcher() {
 		initialize();
 	}
 
 	/**
-	 * Initialize the contents of the frame.
+	 * Método que desarrolla toda la parte gráfica, muestra los
+	 * botones de dificultad, el tablero, y el mensaje. 
+	 * @void no devuelve nada.
 	 */
 	private void initialize() {
 		frame = new JFrame();

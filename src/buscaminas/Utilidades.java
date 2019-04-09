@@ -1,13 +1,16 @@
 package buscaminas;
 
-
 import java.util.Random;
-
 
 
 public class Utilidades {
 
-
+	/**
+	 * Método de prueba para probar que va poniendo minas
+	 * hasta que el tablero está lleno.
+	 * @param tablero
+	 * @void no devuelve nada.
+	 */
 	public static void ponerMinasTest(Tablero tablero) {
 		
 		Random rand = new Random();
@@ -20,7 +23,16 @@ public class Utilidades {
 		
 		
 	}
+	
+	/**
+	 * Método para probar que se pone bien una mina en el tablero.
+	 * @param tablero.
+	 * @param vert índice vertical.
+	 * @param hor índice horizontal.
+	 * @void no devuelve nada.
+	 */
 	public static void ponerMina(Tablero tablero, int vert, int hor) {
+		
 		tablero.getTableroInUse()[vert][hor].setHasMine(true);
 		for (int i = vert-1; i <= vert+1 ; i++) {
 			for (int j = hor-1; j <= hor+1; j++) {
@@ -31,22 +43,33 @@ public class Utilidades {
 					
 				}
 			}
-			
 		}
 	}
-				
+	
+	/**
+	 * Método que prueba que funciona el cambio de estado de las casillas
+	 * cuando se hace "click" sobre ellas.
+	 * @param tablero.
+	 * @param vert índice vertical.
+	 * @param hor índice horizontal.
+	 * @void no devuelve nada.
+	 */
 	public static void pisar(Tablero tablero, int vert, int hor) {
 		
 		if(!tablero.getTableroInUse()[vert][hor].isFlagged() && !tablero.getTableroInUse()[vert][hor].isVisible()) 
 			
-				tablero.getTableroInUse()[vert][hor].setVisible(true);
-				
-			
+				tablero.getTableroInUse()[vert][hor].setVisible(true);	
 				
 		}
-		
 
-	
+	/**
+	 * Método que prueba que funciona el cambio de etiqueta de las casillas
+	 * cuando se hace "click-derecho" sobre ellas.
+	 * @param tablero.
+	 * @param vert índice vertical.
+	 * @param hor índice horizontal.
+	 * @void no devuelve nada.
+	 */
 	public static void flaggear(Tablero tablero, int vert, int hor) {
 		
 		if (!tablero.getTableroInUse()[vert][hor].isFlagged() && !tablero.getTableroInUse()[vert][hor].isVisible())
@@ -55,16 +78,4 @@ public class Utilidades {
 		
 	}
 	
-	
-	
-	/*
-	public static boolean valid(int vert, int hor) {
-		boolean valid=false;
-		if (vert>0 && vert <Tablero.IN_USE[1] && hor>0 && hor <Tablero.IN_USE[2]) {
-			valid=true;
-		}
-		return valid;
-
-	}
-	*/
 }
