@@ -37,12 +37,15 @@ public class Procesador implements MouseListener {
 	
 	@Override
 	public void mouseReleased(MouseEvent e) {
+		
 		Botoncico eb =(Botoncico) e.getSource();
 		Container pan = eb.getParent();
+		
 		if (SwingUtilities.isLeftMouseButton(e)) {
-			if (Tablero.getTableroInUse()[eb.getVer()][eb.getHor()].hasMine() && 
-					!Tablero.getTableroInUse()[eb.getVer()][eb.getHor()].isFlagged()) {
-				Tablero.mostrar();
+			
+			if (eb.getText()!="F" && eb.isEnabled()) {
+			
+				Tablero.pisar(eb.getVer(), eb.getHor());
 				pan.removeAll();
 				Buscaminas.pintaBotones();
 				pan.repaint();
@@ -50,23 +53,23 @@ public class Procesador implements MouseListener {
 
 			}
 			
-			else {
-				Tablero.pisar(eb.getVer(), eb.getHor());
-				String etiq = Tablero.getTableroInUse()[eb.getVer()][eb.getHor()].toString();
-				eb.setEnabled(false);
-				eb.setText(etiq);
-				
-			}
 			
+		} else if (SwingUtilities.isRightMouseButton(e)) {
 			
-		} else
-			if (SwingUtilities.isRightMouseButton(e)) {
+			if (eb.isEnabled())
 				Tablero.flaggear(eb.getVer(), eb.getHor());
 				String etiq = Tablero.getTableroInUse()[eb.getVer()][eb.getHor()].toString();
 				eb.setText(etiq);
 				eb.getParent().repaint();
 				eb.getParent().revalidate();
-			}	
-	}
+			}
+		
+		else {
+			Tablero.pisar(eb.getVer(), eb.getHor());
+			String etiq = Tablero.getTableroInUse()[eb.getVer()][eb.getHor()].toString();
+			eb.setEnabled(false);
+			eb.setText(etiq);
+		}
 	
+	}
 }

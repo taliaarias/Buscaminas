@@ -38,20 +38,21 @@ public class Buscaminas {
 	 * @void no devuelve nada.
 	 */
 	public static void pintaBotones() {
+		Casilla[][] current = Tablero.getTableroInUse();
+		interior.setLayout(new GridLayout(current.length,current[0].length,1,1));    
 		
-		interior.setLayout(new GridLayout(Tablero.getTableroInUse().length,Tablero.getTableroInUse()[1].length,1,1));    
-		
-		for (int i=0; i<Tablero.getTableroInUse().length; i++) {
+		for (int i=0; i<current.length; i++) {
 			
-			for (int j=0; j<Tablero.getTableroInUse()[i].length; j++) {
-			
-			Botoncico botoncico= new Botoncico(Tablero.getTableroInUse()[i][j].toString(), i, j);
+			for (int j=0; j<current[i].length; j++) {
+			Botoncico botoncico= new Botoncico(current[i][j].toString(), i, j);
 			botoncico.addMouseListener(procesador);
+			if (current[i][j].isVisible() && botoncico.getText()!="F") botoncico.setEnabled(false);
 			interior.add(botoncico);
 			
 			}		
 		}
 	}
+	
 
 	/**
 	 * Método ejecutor del programa al que se le pasa el parámetro de dificultad.
