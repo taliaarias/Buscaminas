@@ -22,6 +22,7 @@ public class Botoncico extends JButton {
 		super(args);
 		this.setVer(ver);
 		this.setHor(hor);
+		if (this.getText()=="m") this.setEnabled(true);
 	}
 	
 	//getters and setters

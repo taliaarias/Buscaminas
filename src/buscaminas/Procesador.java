@@ -39,37 +39,42 @@ public class Procesador implements MouseListener {
 	public void mouseReleased(MouseEvent e) {
 		
 		Botoncico eb =(Botoncico) e.getSource();
-		Container pan = eb.getParent();
+		Container pan = eb.getParent();		
 		
-		if (SwingUtilities.isLeftMouseButton(e)) {
-			
-			if (eb.getText()!="F" && eb.isEnabled()) {
-			
-				Tablero.pisar(eb.getVer(), eb.getHor());
-				pan.removeAll();
-				Buscaminas.pintaBotones();
-				pan.repaint();
-				pan.revalidate();
+		if (!Tablero.finito) {
 
-			}
 			
-			
-		} else if (SwingUtilities.isRightMouseButton(e)) {
-			
-			if (eb.isEnabled())
-				Tablero.flaggear(eb.getVer(), eb.getHor());
-				String etiq = Tablero.getTableroInUse()[eb.getVer()][eb.getHor()].toString();
-				eb.setText(etiq);
-				eb.getParent().repaint();
-				eb.getParent().revalidate();
-			}
-		
-		else {
-			Tablero.pisar(eb.getVer(), eb.getHor());
-			String etiq = Tablero.getTableroInUse()[eb.getVer()][eb.getHor()].toString();
-			eb.setEnabled(false);
-			eb.setText(etiq);
-		}
+			if (SwingUtilities.isLeftMouseButton(e)) {
+				
+				if (eb.getText()!="F" && eb.isEnabled()) {
+				
+					Tablero.pisar(eb.getVer(), eb.getHor());
+					pan.removeAll();
+					Buscaminas.pintaBotones();
+					pan.repaint();
+					pan.revalidate();
 	
+				}
+					
+				
+			} else if (SwingUtilities.isRightMouseButton(e)) {
+				
+				if (eb.isEnabled()) {
+					Tablero.flaggear(eb.getVer(), eb.getHor());
+					String etiq = Tablero.getTableroInUse()[eb.getVer()][eb.getHor()].toString();
+					eb.setText(etiq);
+					eb.repaint();
+					eb.revalidate();
+				}
+			
+				/*else {
+					Tablero.pisar(eb.getVer(), eb.getHor());
+					String etiq = Tablero.getTableroInUse()[eb.getVer()][eb.getHor()].toString();
+					eb.setEnabled(false);
+					eb.setText(etiq);
+				}*/
+			}
+
+		}
 	}
 }
