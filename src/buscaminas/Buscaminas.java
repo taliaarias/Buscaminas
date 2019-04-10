@@ -20,6 +20,7 @@ public class Buscaminas {
 		
 		Tablero.iniciarTablero(dif);
 		Tablero.ponerMinas();
+		Tablero.imprime();
 		pintaBotones();
 		contentPane.add(interior);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -46,7 +47,11 @@ public class Buscaminas {
 			for (int j=0; j<current[i].length; j++) {
 			Botoncico botoncico= new Botoncico(current[i][j].toString(), i, j);
 			botoncico.addMouseListener(procesador);
-			if (current[i][j].isVisible() && botoncico.getText()!="F") botoncico.setEnabled(false);
+			if (current[i][j].isVisible() && botoncico.getText()!="F") {
+				
+				botoncico.setEnabled(false);
+				
+			}
 			interior.add(botoncico);
 			
 			}		

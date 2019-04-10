@@ -10,6 +10,7 @@ public class Tablero {
 	//propiedades.
 	private static Casilla[][] tableroInUse;
 	private static Dificultad dificultadInUse;
+	public static boolean finito;
 	
 	static int[] current= {0,0,0}; 
 	static final int[] HARD= {99,16,30};
@@ -108,7 +109,7 @@ public class Tablero {
 				
 				for (int j=0; j < getTableroInUse()[i].length; j++) {
 					
-					System.out.print(getTableroInUse()[i][j]);
+					System.out.print(" "+getTableroInUse()[i][j]+" ");
 					
 				}
 				System.out.println();
@@ -173,19 +174,20 @@ public class Tablero {
 		if (!getTableroInUse()[vert][hor].hasMine()) {
 			
 			getTableroInUse()[vert][hor].setHasMine(true);
+			
 			for (int i = vert-1; i <= vert+1 ; i++) {
 				for (int j = hor-1; j <= hor+1; j++) {
 					
-					if (i>=0 && i<getTableroInUse().length && j>=0 && j<getTableroInUse()[i].length && !getTableroInUse()[i][j].hasMine()) {
+					if (i>=0 && i<getTableroInUse().length && j>=0 && j<getTableroInUse()[i].length) {
 						
-						getTableroInUse()[i][j].sumarCuenta();
+						if (i!=vert || j!=hor) getTableroInUse()[i][j].sumarCuenta();
 						
 					}
 				}
 				
 			}
 			
-		} else getTableroInUse()[vert][hor].setHasMine(false);
+		} 
 		
 		
 		
@@ -222,16 +224,18 @@ public class Tablero {
 	 */
 	public static void pisar(int vert, int hor) {
 		
-		Casilla pisada = getTableroInUse()[vert][hor];
-		
 		if (vert>=0 && vert<getTableroInUse().length && hor>=0 && hor<getTableroInUse()[0].length) {
 		
-		
+			Casilla pisada = getTableroInUse()[vert][hor];
+				
 		if(!pisada.isVisible() && !pisada.isFlagged()) {
 			
-			if (pisada.isFlagged()) pisada.setVisible(false);
+			//if (pisada.isFlagged()) pisada.setVisible(false);
 			
-			if (pisada.hasMine()) Tablero.mostrar();
+			if (pisada.hasMine()) {
+				Tablero.mostrar();
+				Tablero.finito=true;
+			}
 			
 			else pisada.setVisible(true); 
 			
@@ -239,9 +243,9 @@ public class Tablero {
 				
 				for (int i= vert-1; i <= vert+1 ; i++) {
 					for (int j = hor-1; j <= hor+1; j++) {
-						if (i>=0 && i<getTableroInUse().length && j>=0 && j<getTableroInUse()[0].length) {
+						//if (i>=0 && i<getTableroInUse().length && j>=0 && j<getTableroInUse()[0].length) {
 							pisar(i, j);
-							}
+							//}
 						}
 					}
 				}
