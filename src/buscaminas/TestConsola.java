@@ -13,12 +13,7 @@ public class TestConsola {
 	public static void main(String[] args) {
 		
 		Tablero.iniciarTablero(Dificultad.MEDIUM);
-		Tablero.ponerMina(0, 0);
-		Tablero.ponerMina(2, 2);
-		Tablero.ponerMina(0, 2);
-		Tablero.flaggear(0, 2);
-		Tablero.pisar(3, 3);
-		Tablero.flaggear(0, 2);
+		Tablero.ponerMinas();
 		Tablero.imprime();
 	}
 

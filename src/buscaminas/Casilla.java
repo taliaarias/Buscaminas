@@ -31,7 +31,7 @@ public class Casilla {
 	
 	/**
 	 * Método "setter" para poner una mina en uan casilla.
-	 * @param del método anterior, "hasMine".
+	 * @param "true" para poner una mina.
 	 * @void no devuelve nada.
 	 */
 	public void setHasMine(boolean hasMine) {
@@ -124,8 +124,8 @@ public class Casilla {
 		if (isDuda()) res="?";
 		else if (isFlagged()) res="F";		
 		else if (isVisible() && hasMine()) res ="M";
-		else if(!isVisible()) res=" ";
-		else if (getMinesArround()>0 && !hasMine()) res=""+getMinesArround();
+		else if (!isVisible()) res=" ";
+		else if (getMinesArround()>0 && !hasMine()) res=String.valueOf(getMinesArround());
 		else res="-";
 		
 		return res;			
