@@ -12,7 +12,7 @@ public class TestConsola {
 	 */
 	public static void main(String[] args) {
 		
-		Tablero.iniciarTablero(Dificultad.MEDIUM);
+		Tablero.iniciarTablero(Dificultad.MEDIA);
 		Tablero.ponerMinas();
 		Tablero.imprime();
 	}

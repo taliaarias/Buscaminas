@@ -3,14 +3,14 @@ package buscaminas;
 
 import java.util.Random;
 
-enum Dificultad{EASY,MEDIUM,HARD};
+enum Dificultad{FACIL,MEDIA,DIFICIL};
 
 public class Tablero {
 	
 	//propiedades.
 	private static Casilla[][] tableroInUse;
 	private static Dificultad dificultadInUse;
-	public static boolean finito;
+	public static int finito;
 	
 	static int[] current= {0,0,0}; 
 	static final int[] HARD= {99,16,30};
@@ -27,13 +27,13 @@ public class Tablero {
 		setDificultadInUse(dif);
 		switch (dif) {
 		
-		case EASY:
+		case FACIL:
 			current=EASY;
 			break;
-		case MEDIUM:
+		case MEDIA:
 			current=MEDIUM;
 			break;
-		case HARD:
+		case DIFICIL:
 			current=HARD;
 			break;	
 		}
@@ -63,7 +63,7 @@ public class Tablero {
 
 	/**
 	 * @param para establecer el tablero.
-	 * @void no devuelve nada.
+	 * @void
 	 */
 	public static void setTableroInUse(Casilla[][] tablero) {
 		
@@ -72,7 +72,7 @@ public class Tablero {
 
 	/**
 	 * @param dif para establecer la dificultad.
-	 * @void no devuelve nada.
+	 * @void
 	 */
 	public static void setDificultadInUse(Dificultad dif) {
 		
@@ -85,7 +85,7 @@ public class Tablero {
 	 * @void no devuelve nada.
 	 */
 	public static void iniciar() {
-		
+		finito=0;
 		setTableroInUse(new Casilla[current[1]][current[2]]);
 		
 			for (int i = 0; i < getTableroInUse().length; i++) {
@@ -99,7 +99,7 @@ public class Tablero {
 	}
 	
 	/**
-	 * Método que muestra el tablero.
+	 * Método que muestra el tablero // usado para debug.
 	 * @void no devuelve nada.
 	 */
 	public static void imprime() {
@@ -119,7 +119,7 @@ public class Tablero {
 	}
 	
 	/**
-	 * Método para indicar si ya está el tablero completo.
+	 * Método para indicar si ya está el tablero completo (tiene tantas minas como las indicadas por la dificultad del tablero).
 	 * @return boolean.
 	 */
 	public static boolean estaCompleto() {
@@ -145,8 +145,8 @@ public class Tablero {
 	}
 	
 	/**
-	 * Método vacío que muestra el tablero.
-	 * @void no devuelve nada.
+	 * Método vacío que hace visibles todas las casillas del tablero.
+	 * @void
 	 */
 	public static void mostrar() {
 			
@@ -164,7 +164,7 @@ public class Tablero {
 		}
  
 	/**
-	 * Método que pone una mina en el tablero.
+	 * Método que pone una mina en el tablero y suma 1 a "minesAround" de todas las casillas alrededor de la mina.
 	 * @param vert índice vertical.
 	 * @param hor índice horizontal.
 	 * @void no devuelve nada.
@@ -217,41 +217,41 @@ public class Tablero {
 	
 	/**
 	 * Método que muestra las casillas que se van "clickeando", y
-	 * refleja si hay un número, nada o una mina.
+	 * refleja si hay un número, nada o una mina. Explicar recursividad (y límites)
 	 * @param vert índice vertical.
 	 * @param hor índice horizontal.
 	 * @void no devuelve nada.
 	 */
 	public static void pisar(int vert, int hor) {
 		
-		if (vert>=0 && vert<getTableroInUse().length && hor>=0 && hor<getTableroInUse()[0].length) {
-		
-			Casilla pisada = getTableroInUse()[vert][hor];
+		if(!ganar()) {
+			
+			if (vert>=0 && vert<getTableroInUse().length && hor>=0 && hor<getTableroInUse()[0].length) {
+			
+				Casilla pisada = getTableroInUse()[vert][hor];
+					
+			if(!pisada.isVisible() && !pisada.isFlagged()) {
+								
+				if (pisada.hasMine()) {
+					Tablero.mostrar();
+					Tablero.finito=1;
+				}
 				
-		if(!pisada.isVisible() && !pisada.isFlagged()) {
-			
-			//if (pisada.isFlagged()) pisada.setVisible(false);
-			
-			if (pisada.hasMine()) {
-				Tablero.mostrar();
-				Tablero.finito=true;
-			}
-			
-			else pisada.setVisible(true); 
-			
-			if (pisada.getMinesArround()==0) {
+				else pisada.setVisible(true); 
 				
-				for (int i= vert-1; i <= vert+1 ; i++) {
-					for (int j = hor-1; j <= hor+1; j++) {
-						//if (i>=0 && i<getTableroInUse().length && j>=0 && j<getTableroInUse()[0].length) {
-							pisar(i, j);
-							//}
+				if (pisada.getMinesArround()==0 && !pisada.hasMine()) {
+					
+					for (int i= vert-1; i <= vert+1 ; i++) {
+						for (int j = hor-1; j <= hor+1; j++) {
+							//if (i>=0 && i<getTableroInUse().length && j>=0 && j<getTableroInUse()[0].length) {
+								pisar(i, j);
+								//}
+							}
 						}
 					}
 				}
 			}
-		}
-		
+		} 
 	}
 	
 	
@@ -266,11 +266,47 @@ public class Tablero {
 	 */
 	public static void flaggear(int vert, int hor) {
 		
+		if(!ganar()) {
 		Casilla pisada = getTableroInUse()[vert][hor];
 		
 		if (pisada.isFlagged()) pisada.setDuda(true);
 		else if (pisada.isDuda()) pisada.setVisible(false);
 		else pisada.setFlagged(true);
 		
+		}
 	}
+	
+	public static boolean ganar() {
+		
+		boolean ganado=false;
+		int totalminas=current[0];
+		int cont=0;
+		int contPisadas=0;
+		int objetivo=(current[1]*current[2])-current[0];
+		
+		for (int i = 0; i < getTableroInUse().length; i++) {
+			
+			for (int j=0; j < getTableroInUse()[i].length; j++) {
+				Casilla current=getTableroInUse()[i][j];
+				
+				if(current.hasMine()&&current.isFlagged()) {
+					cont++;					
+				}
+				
+				if (current.isVisible()) {
+					contPisadas++;
+					
+				}
+				
+				if (cont==totalminas || contPisadas==objetivo) {
+					ganado=true;
+					finito=2;
+					break;
+				}
+			}
+		}
+		
+		return ganado;
+		
+	} 
 }
