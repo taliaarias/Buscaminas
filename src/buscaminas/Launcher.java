@@ -43,7 +43,7 @@ public class Launcher {
 	 * @void no devuelve nada.
 	 */
 	private void initialize() {
-		frame = new JFrame();
+		frame = new JFrame("Buscaminas: Pedro & Talia");
 		frame.setBounds(100, 100, 337, 110);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
@@ -51,7 +51,7 @@ public class Launcher {
 		JButton btnEasy = new JButton("Fácil");
 		btnEasy.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Buscaminas.execBusca(Dificultad.EASY);
+				Buscaminas.execBusca(Dificultad.FACIL);
 			}
 		});
 		btnEasy.setBounds(10, 38, 89, 23);
@@ -60,7 +60,7 @@ public class Launcher {
 		JButton btnMedium = new JButton("Media");
 		btnMedium.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Buscaminas.execBusca(Dificultad.MEDIUM);
+				Buscaminas.execBusca(Dificultad.MEDIA);
 			}
 		});
 		btnMedium.setBounds(109, 38, 89, 23);
@@ -69,7 +69,7 @@ public class Launcher {
 		JButton btnHard = new JButton("Dificil");
 		btnHard.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Buscaminas.execBusca(Dificultad.HARD);
+				Buscaminas.execBusca(Dificultad.DIFICIL);
 			}
 		});
 		btnHard.setBounds(208, 38, 89, 23);

@@ -7,7 +7,7 @@ import javax.swing.JPanel;
 public class Buscaminas {
 	
 	//propiedades		
-	static public JFrame frame = new JFrame("Ejemplo5 con GridLayout");
+	static public JFrame frame = new JFrame();
 	static public JPanel contentPane = (JPanel) frame.getContentPane();
 	static public JPanel interior= new JPanel();
 	static Procesador procesador = new Procesador();
@@ -20,17 +20,19 @@ public class Buscaminas {
 		
 		Tablero.iniciarTablero(dif);
 		Tablero.ponerMinas();
-		Tablero.imprime();
+		//Tablero.imprime();
 		pintaBotones();
 		contentPane.add(interior);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		if(dif==Dificultad.EASY)
+		if(dif==Dificultad.FACIL)
 		frame.setSize(400,400);
-		else if(dif==Dificultad.MEDIUM)
+		else if(dif==Dificultad.MEDIA)
 		frame.setSize(800,800);
-		else if(dif==Dificultad.HARD)
+		else if(dif==Dificultad.DIFICIL)
 		frame.setSize(1480,800);
 		frame.setVisible(true);
+	
+		frame.setTitle("Buscaminas: Dificultad - "+Tablero.getDificultadInUse());
 		
 	}
 	
@@ -39,6 +41,7 @@ public class Buscaminas {
 	 * @void no devuelve nada.
 	 */
 	public static void pintaBotones() {
+		interior.removeAll();
 		Casilla[][] current = Tablero.getTableroInUse();
 		interior.setLayout(new GridLayout(current.length,current[0].length,1,1));    
 		

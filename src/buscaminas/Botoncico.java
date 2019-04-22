@@ -22,6 +22,7 @@ public class Botoncico extends JButton {
 		super(args);
 		this.setVer(ver);
 		this.setHor(hor);
+		// el constructor de "Botoncico" pinta el botón "pisado" si la etiqueta es "m".
 		if (this.getText()=="m") this.setEnabled(true);
 	}
 	

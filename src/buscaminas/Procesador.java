@@ -1,8 +1,10 @@
 package buscaminas;
 
+import java.awt.Color;
 import java.awt.Container;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 
 public class Procesador implements MouseListener {
@@ -16,11 +18,18 @@ public class Procesador implements MouseListener {
 	@Override
 	public void mouseEntered(MouseEvent e) {
 	
+		Botoncico eb =(Botoncico) e.getSource();
+		
+		eb.setBackground(new Color(220, 220, 220));
 		
 	}
 
 	@Override
 	public void mouseExited(MouseEvent e) {
+		
+		Botoncico eb =(Botoncico) e.getSource();
+		
+		eb.setBackground(null);
 		
 		
 	}
@@ -41,7 +50,7 @@ public class Procesador implements MouseListener {
 		Botoncico eb =(Botoncico) e.getSource();
 		Container pan = eb.getParent();		
 		
-		if (!Tablero.finito) {
+		if (Tablero.finito==0) {
 
 			
 			if (SwingUtilities.isLeftMouseButton(e)) {
@@ -67,14 +76,16 @@ public class Procesador implements MouseListener {
 					eb.revalidate();
 				}
 			
-				/*else {
-					Tablero.pisar(eb.getVer(), eb.getHor());
-					String etiq = Tablero.getTableroInUse()[eb.getVer()][eb.getHor()].toString();
-					eb.setEnabled(false);
-					eb.setText(etiq);
-				}*/
 			}
 
+		} else if(Tablero.finito==1)  {
+			JOptionPane.showInternalMessageDialog(pan.getParent(), "has perdido!", "has perdido!", JOptionPane.INFORMATION_MESSAGE);
+			Launcher.main(null);
 		}
+		else if(Tablero.finito==2)  {
+			JOptionPane.showInternalMessageDialog(pan.getParent(), "has ganado!", "has ganado!", JOptionPane.INFORMATION_MESSAGE);
+			Launcher.main(null);
+		}
+		
 	}
 }

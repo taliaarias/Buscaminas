@@ -16,7 +16,7 @@ public class TableroTest {
 	public static void setUpBeforeClass() throws Exception {
 		
 		
-		Tablero.iniciarTablero(Dificultad.EASY);
+		Tablero.iniciarTablero(Dificultad.FACIL);
 		
 	}
 
@@ -25,7 +25,7 @@ public class TableroTest {
 	public void testIniciarTablero() {
 		
 		System.out.println("Introducimos una dificultad reconocida");
-		 assertEquals(Dificultad.EASY, Tablero.getDificultadInUse());
+		 assertEquals(Dificultad.FACIL, Tablero.getDificultadInUse());
 	}
 
 	@Test
@@ -44,7 +44,7 @@ public class TableroTest {
 	@Test
 	public void testGetDificultadInUse() {
 		System.out.println("Introducimos una dificultad existente");
-		assertEquals(10, Dificultad.EASY.compareTo(null));
+		assertEquals(10, Dificultad.FACIL.compareTo(null));
 	}
 
 	@Test
